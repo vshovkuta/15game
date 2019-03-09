@@ -115,6 +115,7 @@ function moveValue( _clickCellIndex, _emptyCellIndex ) {
 	 
 }
 
+//Проверка на правильность расстановки игрового поля пользователем
 function checkWin() {
 	let resolvedCellCount = 0;
 	
@@ -130,6 +131,7 @@ function checkWin() {
 		} 	
 }
 
+//Проверка на разрешимость расстановки игрового поля
 function checkFinite() {
 	let sum = 0;
 	let emptyCellIndex = getEmptyCell();
