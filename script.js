@@ -11,7 +11,7 @@ document.getElementById('ResetEnd').onclick = initGame;
 
 //Инициализация игрового поля: инициализация массива значений, заполнение клеток случайными елементами массива значений, добавление data-* атрибутов;
 function initGame() {
-	
+
 	document.getElementById('Win').style.display = 'none';
 	
 	clearInterval(Timer);
@@ -46,6 +46,14 @@ function initGame() {
 			cell[i].onclick = clickCell;
 			
 	}
+	
+	//Проверка на разрешимость текущей расстановки игрового поля
+	if(!checkFinite()) {
+		initGame();
+		//console.log('Unresolve game: trying again!');
+		return;
+	}
+	//console.log('Resolve game!');
 	
 	//Присвоение начальных значений счетчикам
 	TIME = 0;
@@ -120,6 +128,34 @@ function checkWin() {
 		clearInterval(Timer);
 		document.getElementById('Win').style.display = 'flex';
 		} 	
+}
+
+function checkFinite() {
+	let sum = 0;
+	let emptyCellIndex = getEmptyCell();
+	let emptyRowIndex;
+	
+	for (let i = 0; i < cell.length; ++i) {
+		for (let j = i+1; j < cell.length; ++j) {
+			if ( ( +cell[i].innerText > +cell[j].innerText ) && cell[j].innerText != '') {
+					//console.log('i: ' + i + ', j: ' + j);
+					//console.log('cell[i]: ' + cell[i].innerText + ', cell[j]: ' + cell[j].innerText);
+					sum++;				
+			}
+		}
+	}
+	//console.log('sum: ' + sum);
+	
+	if (emptyCellIndex >=0 && emptyCellIndex <=3) emptyRowIndex = 1;
+	if (emptyCellIndex >=4 && emptyCellIndex <=7) emptyRowIndex = 2;
+	if (emptyCellIndex >=8 && emptyCellIndex <=11) emptyRowIndex = 3;
+	if (emptyCellIndex >=12 && emptyCellIndex <=15) emptyRowIndex = 4;
+	//console.log('emptyRowIndex: ' + emptyRowIndex);
+	
+	if ( (sum + emptyRowIndex) % 2 == 0) {
+		return true;
+	}
+	return false;
 }
 
 
