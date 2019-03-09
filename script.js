@@ -165,4 +165,4 @@ function spendTime() {
 	document.getElementById('Spend').innerText = 'TIME: ' + Math.floor(TIME/60) + ':' + (TIME%60<10?'0'+TIME%60:TIME%60);
 	TIME++;
 
-};
+}
